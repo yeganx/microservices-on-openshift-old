@@ -15,5 +15,21 @@ $(function() {
 		e.preventDefault();
 	});
 
+	$('#register-submit').click(function(e) {
+		$.ajax({
+		  type: "POST",
+		  url: "http://users-api-microservices.apps.osecloud.com/users",
+		  data: {
+		  	name: $("#username").val(),
+		  	password: $("#password").val(),
+		  	email: $("#email").val()
+		  },
+		  success: function(resp) {
+		  	 alert(JSON.stringify(resp));
+		  },
+		  dataType: 'json'
+		});
+		e.preventDefault();
+	});
 });
 

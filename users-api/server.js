@@ -137,6 +137,18 @@ apiRoutes.get('/', function(req, res) {
 	res.json({ message: 'All Good!' });
 });
 
+app.post('/users', function(req, res) {
+	var u = req.body;
+	u.admin=false;
+	var usr = new User(u);
+	usr.save(function(err) {
+		if (err) throw err;
+		console.log('User saved successfully');
+		res.json({ success: true });
+	});
+	console.log('User saved successfully 2');
+});
+
 apiRoutes.get('/users', function(req, res) {
 	User.find({}, function(err, users) {
 		res.json(users);
