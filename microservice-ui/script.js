@@ -25,7 +25,9 @@ $(function() {
 		  	email: $("#email").val()
 		  },
 		  success: function(resp) {
-		  	 alert(JSON.stringify(resp));
+		  	 console.log(resp);
+		  	 alert('Registration complete!');
+		  	 $('#login-form-link').click();
 		  },
 		  dataType: 'json'
 		});
