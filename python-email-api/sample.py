@@ -8,7 +8,7 @@ class EmailResource(object):
     def on_get(self, req, resp):
         """Handles GET requests"""
         resp.status = falcon.HTTP_200
-        resp.body = 'Email API'
+        resp.body = 'Email API 2'
  
     def on_post(self, req, resp):
         """Handles POST requests"""
@@ -36,7 +36,7 @@ class EmailResource(object):
         msg = email_req['msg']
         server.sendmail("node2test@gmail.com", email_req['to'], msg)
         server.quit()
-        resp.body = json.dumps(email_req, encoding='utf-8')
+        resp.body = json.dumps(email_req)
 
 api = falcon.API()
 api.add_route('/email', EmailResource())
