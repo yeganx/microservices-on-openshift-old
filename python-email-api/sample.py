@@ -2,6 +2,7 @@
 import falcon
 import json
 import smtplib
+import codecs
 
 class EmailResource(object):
     def on_get(self, req, resp):
@@ -12,14 +13,16 @@ class EmailResource(object):
     def on_post(self, req, resp):
         """Handles POST requests"""
         try:
-            raw_json = req.stream.read()
+            raw_json = req.stream.read().decode('utf-8')
         except Exception as ex:
             raise falcon.HTTPError(falcon.HTTP_400,
                 'Error',
                 ex.message)
  
         try:
-            email_req = json.loads(raw_json, encoding='utf-8')
+            #reader = codecs.getreader("utf-8")
+	    #email_req = json.load(reader(raw_json))
+            email_req = json.loads(raw_json)
         except ValueError:
             raise falcon.HTTPError(falcon.HTTP_400,
                 'Malformed JSON',
