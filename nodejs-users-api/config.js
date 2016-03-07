@@ -1,5 +1,5 @@
 
 module.exports = {
 	'secret': 'saregama',
-	'database': 'mongodb://'+process.env.DATABASE_USER+':'+process.env.DATABASE_PASSWORD+'@'+process.env.DATABASE_SERVICE_NAME+'_HOST:27017/'+process.env.DATABASE_NAME
+	'database': 'mongodb://'+process.env.MONGODB_USER+':'+process.env.MONGODB_PASSWORD+'@'+process.env.MONGODB_SERVICE_HOST+':27017/'+process.env.MONGODB_DATABASE
 };
