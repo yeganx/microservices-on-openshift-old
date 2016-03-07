@@ -138,7 +138,7 @@ app.post('/users', function(req, res) {
 		data = {
 			msg:"Signup complete!",
 			subject: "Registration"
-			to: usr.email
+			to: req.body.email
 		}
 		client.post('/email/', data, function(err, res, body) {
   			res.json({ success: true });
