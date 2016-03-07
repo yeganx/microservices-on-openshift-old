@@ -11,6 +11,8 @@ var mongoose    = require('mongoose');
 var jwt    = require('jsonwebtoken'); 
 var config = require('./config'); 
 var User   = require('./app/models/user'); 
+var cors = require('cors');
+
 request = require('request-json');
 
 var client = request.createClient(process.env.PYTHON_APPLICATION_DOMAIN);
@@ -25,11 +27,7 @@ app.use(bodyParser.json());
 
 app.use(morgan('dev'));
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors());
 
 
 
