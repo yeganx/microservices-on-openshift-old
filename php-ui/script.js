@@ -18,7 +18,8 @@ $(function() {
 	$('#register-submit').click(function(e) {
 		$.ajax({
 		  type: "POST",
-		  url: "http://users-api-microservices.apps.osecloud.com/users",
+		  //url: "http://users-api-microservices.apps.osecloud.com/users",
+		  url: $("#hdnTarget").val()+"/users",
 		  data: {
 		  	name: $("#username").val(),
 		  	password: $("#password").val(),

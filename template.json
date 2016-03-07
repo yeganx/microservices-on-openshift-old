@@ -285,7 +285,7 @@
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "python-email-api:latest"
+                "name": "debianmaster/python-email-api:latest"
               }
             }
           },
@@ -527,13 +527,13 @@
       "name": "NODEJS_APPLICATION_DOMAIN",
       "displayName": "Application hostname",
       "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
-      "value": "nodejs-users-api"
+      "value": ""
     },
     {
       "name": "PYTHON_APPLICATION_DOMAIN",
       "displayName": "Application hostname",
       "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
-      "value": "python-email-api"
+      "value": ""
     },
     {
       "name": "GITHUB_WEBHOOK_SECRET",

@@ -40,6 +40,7 @@
                         <hr>
                     </div>
                     <div class="panel-body">
+                        <input type=hidden id="hdnTarget" value="<?=$_ENV["NODEJS_APPLICATION_DOMAIN"]; ?>">
                         <div class="row">
                             <div class="col-lg-12">
                                 <form id="login-form" action="#" method="post" role="form" style="display: block;">
