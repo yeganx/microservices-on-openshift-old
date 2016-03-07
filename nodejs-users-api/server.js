@@ -162,3 +162,4 @@ app.use('/api', apiRoutes);
 
 app.listen(port);
 console.log('Magic happens at http://localhost:' + port);
+console.log(process.ENV);
