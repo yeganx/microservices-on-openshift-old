@@ -1,3 +1,7 @@
+> This repo demos usage of  microservices on open-shift.  
+> Microservices created in different languages communicate over REST as per picture below
+
+
 ## for mongodb
 ```sh
 oc new-app -e \
