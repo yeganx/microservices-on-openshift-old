@@ -138,7 +138,9 @@ app.post('/users', function(req, res) {
 			subject: "Registration",
 			to: req.body.email
 		}
-		client.post('/email/', data, function(err, res, body) {
+		console.log('data',data);
+		client.post('/email/', data, function(err, response, body) {
+			console.log(response,body);
   			res.json({ success: true });
 		});
 	});
