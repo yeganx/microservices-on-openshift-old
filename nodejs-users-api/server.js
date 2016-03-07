@@ -137,7 +137,7 @@ app.post('/users', function(req, res) {
 		console.log('User saved successfully');
 		data = {
 			msg:"Signup complete!",
-			subject: "Registration"
+			subject: "Registration",
 			to: req.body.email
 		}
 		client.post('/email/', data, function(err, res, body) {
