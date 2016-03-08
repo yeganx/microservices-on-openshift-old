@@ -58,6 +58,28 @@
       }
     },
     {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "php-ui",
+        "annotations": {
+          "description": "Exposes and load balances the application pods"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "web",
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "name": "php-ui"
+        }
+      }
+    },
+    {
       "kind": "Route",
       "apiVersion": "v1",
       "metadata": {
@@ -86,10 +108,34 @@
       }
     },
     {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "php-ui"
+      },
+      "spec": {
+        "host": "${PHPUI_APPLICATION_DOMAIN}",
+        "to": {
+          "kind": "Service",
+          "name": "php-ui"
+        }
+      }
+    },
+    {
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
         "name": "nodejs-users-api",
+        "annotations": {
+          "description": "Keeps track of changes in the application image"
+        }
+      }
+    },
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "php-ui",
         "annotations": {
           "description": "Keeps track of changes in the application image"
         }
@@ -105,8 +151,8 @@
         }
       },
       "spec": {
-       "dockerImageRepository" : "debianmaster/python-email-api"
-       }
+        "dockerImageRepository": "debianmaster/python-email-api"
+      }
     },
     {
       "kind": "BuildConfig",
@@ -140,6 +186,62 @@
           "to": {
             "kind": "ImageStreamTag",
             "name": "nodejs-users-api:latest"
+          }
+        },
+        "triggers": [
+          {
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          },
+          {
+            "type": "GitHub",
+            "github": {
+              "secret": "${GITHUB_WEBHOOK_SECRET}"
+            }
+          },
+          {
+            "type": "Generic",
+            "generic": {
+              "secret": "${GENERIC_WEBHOOK_SECRET}"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "php-ui",
+        "annotations": {
+          "description": "Defines how to build the application"
+        }
+      },
+      "spec": {
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${SOURCE_REPOSITORY_URL}",
+            "ref": "${SOURCE_REPOSITORY_REF}"
+          },
+          "contextDir": "${PHPUI_CONTEXT_DIR}"
+        },
+        "strategy": {
+          "type": "Source",
+          "sourceStrategy": {
+            "from": {
+              "kind": "ImageStreamTag",
+              "namespace": "openshift",
+              "name": "php:5.6"
+            }
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "php-ui:latest"
           }
         },
         "triggers": [
@@ -269,7 +371,10 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "python-email-api"
+        "name": "php-ui",
+        "annotations": {
+          "description": "Defines how to deploy the application server"
+        }
       },
       "spec": {
         "strategy": {
@@ -281,11 +386,11 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "python-email-api"
+                "nodejs-users-api"
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "debianmaster/python-email-api:latest"
+                "name": "nodejs-users-api:latest"
               }
             }
           },
@@ -295,20 +400,20 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "python-email-api"
+          "name": "php-ui"
         },
         "template": {
           "metadata": {
-            "name": "python-email-api",
+            "name": "php-ui",
             "labels": {
-              "name": "python-email-api"
+              "name": "php-ui"
             }
           },
           "spec": {
             "containers": [
               {
-                "name": "python-email-api",
-                "image": "debianmaster/python-email-api",
+                "name": "php-ui",
+                "image": "php-ui:latest",
                 "ports": [
                   {
                     "containerPort": 8080
@@ -357,6 +462,53 @@
                     "memory": "${MEMORY_LIMIT}"
                   }
                 }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "python-email-api"
+      },
+      "spec": {
+        "strategy": {
+          "type": "Rolling"
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange",
+            "imageChangeParams": {
+              "automatic": true
+            }
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "app": "python-email-api",
+          "deploymentconfig": "python-email-api"
+        },
+        "template": {
+          "metadata": {
+            "name": "python-email-api",
+            "labels": {
+              "app": "python-email-api",
+              "deploymentconfig": "python-email-api"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "python-email-api",
+                "image": "debianmaster/python-email-api@sha256:736abc826bc71286bd6d744d78c28802ab3101df25bdf93213270238c8f6090b",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ]
               }
             ]
           }
@@ -531,6 +683,12 @@
     },
     {
       "name": "PYTHON_APPLICATION_DOMAIN",
+      "displayName": "Application hostname",
+      "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
+      "value": ""
+    },
+    {
+      "name": "PHPUI_APPLICATION_DOMAIN",
       "displayName": "Application hostname",
       "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
       "value": ""
