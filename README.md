@@ -1,6 +1,7 @@
 > This repo demos usage of  microservices on open-shift.  
 > Microservices created in different languages communicate over REST as per picture below
 
+![alt tag](https://raw.githubusercontent.com/debianmaster/microservices-on-openshift/master/Arch.png)
 
 ## for mongodb
 ```sh
