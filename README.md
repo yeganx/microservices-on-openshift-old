@@ -19,7 +19,7 @@ oc new-app --context-dir='python-email-api' \
 
 ## for php-ui 
 ```sh
-oc new-app --context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git   
+oc new-app --context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='php-ui'    
 oc env dc/php-ui NODEJS_APPLICATION_DOMAIN=http://nodejs-users-api-microservices.apps.osecloud.com  
 ```
 
