@@ -2,10 +2,10 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "nodejs-users-api",
+    "name": "microservices-on-openshift",
     "annotations": {
-      "description": "An example Node.js application with a MongoDB database",
-      "tags": "quickstart,nodejs,mongodb",
+      "description": "A microservices sample on openshift",
+      "tags": "microservices",
       "iconClass": "icon-nodejs"
     }
   },
@@ -503,7 +503,7 @@
             "containers": [
               {
                 "name": "python-email-api",
-                "image": "debianmaster/python-email-api@sha256:736abc826bc71286bd6d744d78c28802ab3101df25bdf93213270238c8f6090b",
+                "image": "debianmaster/python-email-api",
                 "ports": [
                   {
                     "containerPort": 8080
@@ -569,7 +569,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": 0,
         "selector": {
           "name": "${DATABASE_SERVICE_NAME}"
         },
@@ -665,13 +665,19 @@
     },
     {
       "name": "NODEJS_CONTEXT_DIR",
-      "displayName": "Context directory",
+      "displayName": "Users API context dir",
       "description": "Set this to the relative path to your project if it is not in the root of your repository",
       "value": "nodejs-users-api"
     },
     {
+      "name": "PHPUI_CONTEXT_DIR",
+      "displayName": "UI  context dir",
+      "description": "Set this to the relative path to your project if it is not in the root of your repository",
+      "value": "php-ui"
+    },
+    {
       "name": "PYTHON_CONTEXT_DIR",
-      "displayName": "Context directory",
+      "displayName": "Email API context dir",
       "description": "Set this to the relative path to your project if it is not in the root of your repository",
       "value": "python-email-api"
     },
