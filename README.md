@@ -7,14 +7,14 @@
 ```sh
 oc new-app -e MONGODB_USER=app_user,MONGODB_PASSWORD=password,\
 MONGODB_DATABASE=sampledb,MONGODB_ADMIN_PASSWORD=admin_pass \
-registry.access.redhat.com/rhscl/mongodb-26-rhel7 --name mongodb
+  registry.access.redhat.com/rhscl/mongodb-26-rhel7 --name mongodb
 ```
 ## for python email-api 
 
 ```sh
-oc new-app debianmaster/python-email-api  
-oc expose dc/python-email-api --port 8080  
-oc expose svc/python-email-api   
+oc new-app --context-dir='python-email-api' \
+  https://github.com/debianmaster/microservices-on-openshift.git \
+  --name 'python-email-api' --image-stream='python:2.7'
 ```
 
 ## for php-ui 
