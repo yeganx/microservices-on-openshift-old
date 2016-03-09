@@ -5,9 +5,9 @@
 
 ## for mongodb
 ```sh
-oc new-app -e \
-    MONGODB_USER=app_user,MONGODB_PASSWORD=password,MONGODB_DATABASE=sampledb,MONGODB_ADMIN_PASSWORD=admin_pass \
-    registry.access.redhat.com/rhscl/mongodb-26-rhel7
+oc new-app -e MONGODB_USER=app_user,MONGODB_PASSWORD=password,\
+MONGODB_DATABASE=sampledb,MONGODB_ADMIN_PASSWORD=admin_pass\
+registry.access.redhat.com/rhscl/mongodb-26-rhel7 --name mongodb
 ```
 ## for python email-api 
 
