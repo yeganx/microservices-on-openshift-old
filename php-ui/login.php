@@ -1,9 +1,9 @@
-<form id="login-form" action="#" method="post" role="form" style="display: block;">
+<form id="login-form" action="#" method="post" role="form" ng-hide="currentPage!='login'">
     <div class="form-group">
-        <input type="text" name="username" id="login-username" tabindex="1" class="form-control" placeholder="Username" value="">
+        <input type="text" ng-model="form.username" name="username" id="login-username" tabindex="1" class="form-control" placeholder="Username" value="">
     </div>
     <div class="form-group">
-        <input type="password" name="password" id="login-password" tabindex="2" class="form-control" placeholder="Password">
+        <input type="password" ng-model="form.password" name="password" id="login-password" tabindex="2" class="form-control" placeholder="Password">
     </div>
     <div class="form-group text-center">
         <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -12,17 +12,14 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                <input type="button" ng-click="login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
             </div>
         </div>
     </div>
     <div class="form-group">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="text-center">
-                    <a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
-                </div>
-            </div>
-        </div>
+        <input type="text" ng-model="token" name="token" id="token" tabindex="4" class="form-control" placeholder="Auth Token">
+    </div>    
+    <div class="form-group">
+        <input type="button" ng-click="getFriendsList()"  class="form-control btn btn-login" value="Get Friends List">
     </div>
 </form>

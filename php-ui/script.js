@@ -1,38 +1,43 @@
-$(function() {
+var app = angular.module('myApp', []);
+app.controller('appController', function($scope,$http) { 
+	$scope.currentPage='register';
+	$scope.form={
+		username:'foobar',
+		password:'foobar',
+		cpassword:'foobar',
+		email:'foobar@gmail.com',
+		fname:'foo',
+		lname:'bar'
+	};
 
-    $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
+	$scope.$watch('currentPage',function(old,newval) {
+		$scope.token='';
 	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-	$('#register-submit').click(function(e) {
-		$.ajax({
-		  type: "POST",
-		  //url: "http://users-api-microservices.apps.osecloud.com/users",
-		  url: $("#hdnTarget").val()+"/users",
-		  data: {
-		  	name: $("#username").val(),
-		  	password: $("#password").val(),
-		  	email: $("#email").val()
-		  },
-		  success: function(resp) {
-		  	 console.log(resp);
-		  	 alert('Registration complete!');
-		  	 $('#login-form-link').click();
-		  },
-		  dataType: 'json'
-		});
-		e.preventDefault();
-	});
+    $scope.login = function (){
+	  	$http.post("http://mobile.dev:8080/api/authenticate",$scope.form).success(function(data, status) {
+            if(data['success']==true){
+            	alert('Login successful, click link to get friends list.');
+            	$scope.token=data.token;
+            }
+            else{
+            	alert('username/password incorrect');
+            }
+        });
+	};
+	$scope.getFriendsList=function(){
+		$http.get("http://mobile.dev:8080/api/users?token="+$scope.token).success(function(data, status) {
+            console.log(data);
+        });	
+	};
+	$scope.register = function (){
+	  	$http.post("http://mobile.dev:8080/users", $scope.form).success(function(data, status) {
+            if(data['success']==true){
+            	alert('Registration successful, please login');
+            	$scope.currentPage='login';
+            }
+            else{
+            	alert('Error while registering, please retry')
+            }
+        });
+	};
 });
-

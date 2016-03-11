@@ -35,7 +35,7 @@ app.get('/setup', function(req, res) {
 
 	
 	var nick = new User({ 
-		name: 'demo', 
+		username: 'demo', 
 		password: 'demo',
 		admin: true 
 	});
@@ -58,7 +58,8 @@ apiRoutes.post('/authenticate', function(req, res) {
 
 	// find the user
 	User.findOne({
-		name: req.body.name
+		username: req.body.name,
+		password: req.body.password
 	}, function(err, user) {
 
 		if (err) throw err;
@@ -130,25 +131,23 @@ app.post('/users', function(req, res) {
 	var u = req.body;
 	u.admin=false;
 	var usr = new User(u);
-	usr.save(function(err) {
+	usr.save(function(err,data) {
 		if (err) throw err;
-		console.log('User saved successfully');
 		data = {
-			msg:"Signup complete!",
+			msg: "Signup complete!",
 			subject: "Registration",
 			to: req.body.email
 		}
 		console.log('data',data);
-		client.post('/email/', data, function(err, response, body) {
-			console.log(response,body);
+		//client.post('/email/', data, function(err, response, body) {
+			//console.log(response,body);
   			res.json({ success: true });
-		});
+		//});
 	});
-	console.log('User saved successfully 2');
 });
 
 apiRoutes.get('/users', function(req, res) {
-	User.find({}, function(err, users) {
+	User.find({},{username:1,email:1}, function(err, users) {
 		res.json(users);
 	});
 });

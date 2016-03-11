@@ -3,18 +3,18 @@
 <?php
  include 'head.php';
 ?>
-<body>
-    <div class="container">
+<body ng-app="myApp">
+    <div class="container" ng-controller="appController">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-login">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6">
-                                <a href="#" class="active" id="login-form-link">Login</a>
+                                <a href="#" class="active" id="login-form-link" ng-click="currentPage='login'">Login</a>
                             </div>
                             <div class="col-xs-6">
-                                <a href="#" id="register-form-link">Register</a>
+                                <a href="#" class="active" id="register-form-link" ng-click="currentPage='register'">Register</a>
                             </div>
                         </div>
                         <hr>
@@ -29,12 +29,22 @@
                                 ?>
                             </div>
                         </div>
+                        <div class="row">
+                            <?php
+                             include 'profile.php';
+                            ?>
+                        </div>
+                        <div class="row">
+                            <?php
+                             include 'friends.php';
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+   
 </body>
 
 </html>
