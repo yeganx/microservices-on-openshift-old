@@ -1,6 +1,7 @@
 var app = angular.module('myApp', []);
 app.controller('appController', function($scope,$http) { 
 	$scope.currentPage='register';
+	$scope.friends=[];
 	$scope.form={
 		username:'foobar',
 		password:'foobar',
@@ -27,6 +28,8 @@ app.controller('appController', function($scope,$http) {
 	$scope.getFriendsList=function(){
 		$http.get("http://mobile.dev:8080/api/users?token="+$scope.token).success(function(data, status) {
             console.log(data);
+            $scope.friends=data;
+            $scope.currentPage='friends';
         });	
 	};
 	$scope.register = function (){

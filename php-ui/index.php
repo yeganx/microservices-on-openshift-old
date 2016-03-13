@@ -10,11 +10,14 @@
                 <div class="panel panel-login">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-6">
-                                <a href="#" class="active" id="login-form-link" ng-click="currentPage='login'">Login</a>
+                            <div class="col-xs-4">
+                                <a href="#" ng-class="currentPage=='login'?'active':'';" id="login-form-link" ng-click="currentPage='login'">Login</a>
                             </div>
-                            <div class="col-xs-6">
-                                <a href="#" class="active" id="register-form-link" ng-click="currentPage='register'">Register</a>
+                            <div class="col-xs-4">
+                                <a href="#" ng-class="currentPage=='register'?'active':'';"  id="register-form-link" ng-click="currentPage='register'">Register</a>
+                            </div>
+                            <div class="col-xs-4">
+                                <a href="#" ng-class="currentPage=='friends'?'active':'';" id="friends-form-link" ng-click="currentPage='friends'">Friends List</a>
                             </div>
                         </div>
                         <hr>

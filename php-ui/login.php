@@ -16,10 +16,13 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <input type="text" ng-model="token" name="token" id="token" tabindex="4" class="form-control" placeholder="Auth Token">
-    </div>    
-    <div class="form-group">
-        <input type="button" ng-click="getFriendsList()"  class="form-control btn btn-login" value="Get Friends List">
-    </div>
+    <span ng-show="token">
+        Auth Token:
+        <div class="form-group">
+            <input type="text" ng-model="token" name="token" id="token" tabindex="4" class="form-control" placeholder="Auth Token">
+        </div>    
+        <div class="form-group">
+            <input type="button" ng-click="getFriendsList()"  class="form-control btn btn-login" value="Get Friends List">
+        </div>
+    </span>
 </form>
