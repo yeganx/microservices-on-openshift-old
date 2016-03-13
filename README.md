@@ -26,5 +26,5 @@ oc env dc/php-ui NODEJS_APPLICATION_DOMAIN=http://nodejs-users-api-microservices
 ## for nodejs-users-api
 ```sh
 oc new-app --context-dir='nodejs-users-api' https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'  
-oc env dc/nodejs-users-api MONGODB_DATABASE=sampledb MONGODB_PASSWORD=password MONGODB_USER=app_user  MONGODBDATABASE_SERVICE_NAME=mongodb   MONGODB_SERVICE_HOST=172.30.170.222 PYTHON_APPLICATION_DOMAIN=http://python-email-api-microservices.apps.osecloud.com
+oc env dc/nodejs-users-api MONGODB_DATABASE=sampledb MONGODB_PASSWORD=password MONGODB_USER=app_user  MONGODBDATABASE_SERVICE_NAME=mongodb PYTHON_APPLICATION_DOMAIN=http://python-email-api-microservices.apps.osecloud.com
 ```
