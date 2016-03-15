@@ -6,7 +6,7 @@
 ## initial setup
 ```sh
 export OSE_DOMAIN=apps.demov3.osecloud.com  
-oc new-project microservices
+export OSE_PROJECT=microservices
 ```
 ## for mongodb
 ```sh
@@ -24,13 +24,13 @@ oc new-app --context-dir='python-email-api' \
 
 ## for php-ui 
 ```sh
-oc new-app -e NODEJS_APPLICATION_DOMAIN="http://nodejs-users-api-microservices.$OSE_DOMAIN" \
+oc new-app -e NODEJS_APPLICATION_DOMAIN="http://nodejs-users-api-$OSE_PROJECT.$OSE_DOMAIN" \
 --context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='php-ui'
 ```
 
 ## for nodejs-users-api
 ```sh
-oc new-app -e PYTHON_APPLICATION_DOMAIN="http://python-email-api-microservices.$OSE_DOMAIN,\
+oc new-app -e PYTHON_APPLICATION_DOMAIN="http://python-email-api-$OSE_PROJECT.$OSE_DOMAIN,\
 MONGODB_DATABASE=sampledb,MONGODB_PASSWORD=password,MONGODB_USER=app_user,DATABASE_SERVICE_NAME=mongodb" \
 --context-dir='nodejs-users-api' https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'  
 ```
