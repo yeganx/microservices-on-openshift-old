@@ -1,3 +1,4 @@
+/*  Dummy comments */
 var app = angular.module('myApp', []);
 app.controller('appController', function($scope,$http) { 
 	$scope.currentPage='register';
