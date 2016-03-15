@@ -28,13 +28,12 @@
                             <div class="col-lg-12">
                                 <?php
                                  include 'login.php';
-                                 include 'register.php';
                                 ?>
                             </div>
                         </div>
                         <div class="row">
                             <?php
-                             include 'profile.php';
+                             include 'register.php';
                             ?>
                         </div>
                         <div class="row">
