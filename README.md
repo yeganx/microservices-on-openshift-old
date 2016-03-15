@@ -31,6 +31,7 @@ oc new-app -e NODEJS_APPLICATION_DOMAIN="http://nodejs-users-api-$OSE_PROJECT.$O
 ## for nodejs-users-api
 ```sh
 oc new-app -e PYTHON_APPLICATION_DOMAIN="http://python-email-api-$OSE_PROJECT.$OSE_DOMAIN,\
-MONGODB_DATABASE=sampledb,MONGODB_PASSWORD=password,MONGODB_USER=app_user,DATABASE_SERVICE_NAME=mongodb" \
+MONGODB_DATABASE=sampledb,MONGODB_PASSWORD=password,MONGODB_USER=app_user,\
+DATABASE_SERVICE_NAME=mongodb" \
 --context-dir='nodejs-users-api' https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'  
 ```
