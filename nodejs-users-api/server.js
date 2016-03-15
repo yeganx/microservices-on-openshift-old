@@ -58,7 +58,7 @@ apiRoutes.post('/authenticate', function(req, res) {
 
 	// find the user
 	User.findOne({
-		username: req.body.name,
+		username: req.body.username,
 		password: req.body.password
 	}, function(err, user) {
 
