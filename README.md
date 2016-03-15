@@ -4,8 +4,10 @@
 ![alt tag](https://raw.githubusercontent.com/debianmaster/microservices-on-openshift/master/Arch.png)
 
 ## initial setup
-`export OSE_DOMAIN=apps.demov3.osecloud.com`  
-
+```sh
+export OSE_DOMAIN=apps.demov3.osecloud.com  
+oc new-project microservices
+```
 ## for mongodb
 ```sh
 oc new-app -e MONGODB_USER=app_user,MONGODB_PASSWORD=password,\
