@@ -139,10 +139,10 @@ app.post('/users', function(req, res) {
 			to: req.body.email
 		}
 		console.log('data',data);
-		//client.post('/email/', data, function(err, response, body) {
+		client.post('/email/', data, function(err, response, body) {
 			//console.log(response,body);
   			res.json({ success: true });
-		//});
+		});
 	});
 });
 
