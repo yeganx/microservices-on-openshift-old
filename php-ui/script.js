@@ -11,12 +11,16 @@ app.controller('appController', function($scope,$http) {
 		fname:'foo',
 		lname:'bar'
 	};
+	$scope.loginform={
+		username:'foobar',
+		password:'foobar'
+	};
 	$scope.target=document.getElementById('hdnTarget').value;
 	$scope.$watch('currentPage',function(old,newval) {
 		$scope.token='';
 	});
     $scope.login = function (){
-	  	$http.post($scope.target+"/api/authenticate",$scope.form).success(function(data, status) {
+	  	$http.post($scope.target+"/api/authenticate",$scope.loginform).success(function(data, status) {
             if(data['success']==true){
             	alert('Login successful, click link to get friends list.');
             	$scope.token=data.token;

@@ -1,9 +1,9 @@
 <form id="login-form" action="#" method="post" role="form" ng-hide="currentPage!='login'">
     <div class="form-group">
-        <input type="text" ng-model="form.username" name="username" id="login-username" tabindex="1" class="form-control" placeholder="Username" value="">
+        <input type="text" ng-model="loginform.username" name="username" id="login-username" tabindex="1" class="form-control" placeholder="Username" value="">
     </div>
     <div class="form-group">
-        <input type="password" ng-model="form.password" name="password" id="login-password" tabindex="2" class="form-control" placeholder="Password">
+        <input type="password" ng-model="loginform.password" name="password" id="login-password" tabindex="2" class="form-control" placeholder="Password">
     </div>
     <div class="form-group text-center">
         <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
