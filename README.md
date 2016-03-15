@@ -19,13 +19,15 @@ MONGODB_DATABASE=sampledb,MONGODB_ADMIN_PASSWORD=admin_pass \
 ```sh
 oc new-app --context-dir='python-email-api' \
   https://github.com/debianmaster/microservices-on-openshift.git \
-  --name 'python-email-api' --image-stream='python:2.7'
+  --name 'python-email-api' --image-stream='python:2.7'   
+oc expose svc/python-email-api
 ```
 
 ## for php-ui 
 ```sh
 oc new-app -e NODEJS_APPLICATION_DOMAIN="http://nodejs-users-api-$OSE_PROJECT.$OSE_DOMAIN" \
---context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='php-ui'
+--context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='php-ui'   
+oc expose svc/php-ui 
 ```
 
 ## for nodejs-users-api
@@ -34,5 +36,6 @@ oc new-app -e PYTHON_APPLICATION_DOMAIN="http://python-email-api-$OSE_PROJECT.$O
 MONGODB_DATABASE=sampledb,MONGODB_PASSWORD=password,\
 MONGODB_USER=app_user,DATABASE_SERVICE_NAME=mongodb" \
 --context-dir='nodejs-users-api' \
-https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'  
+https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'   
+oc expose svc/nodejs-users-api
 ```
