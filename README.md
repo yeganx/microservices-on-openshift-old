@@ -20,11 +20,11 @@ oc new-app --context-dir='python-email-api' \
 ## for php-ui 
 ```sh
 oc new-app --context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='php-ui'    
-oc env dc/php-ui NODEJS_APPLICATION_DOMAIN=http://nodejs-users-api-microservices.apps.osecloud.com  
+oc env dc/php-ui NODEJS_APPLICATION_DOMAIN=http://nodejs-users-api-microservices.apps.demov3.osecloud.com  
 ```
 
 ## for nodejs-users-api
 ```sh
 oc new-app --context-dir='nodejs-users-api' https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'  
-oc env dc/nodejs-users-api MONGODB_DATABASE=sampledb MONGODB_PASSWORD=password MONGODB_USER=app_user  MONGODBDATABASE_SERVICE_NAME=mongodb PYTHON_APPLICATION_DOMAIN=http://python-email-api-microservices.apps.osecloud.com
+oc env dc/nodejs-users-api MONGODB_DATABASE=sampledb MONGODB_PASSWORD=password MONGODB_USER=app_user  MONGODBDATABASE_SERVICE_NAME=mongodb PYTHON_APPLICATION_DOMAIN=http://python-email-api-microservices.apps.demov3.osecloud.com
 ```
