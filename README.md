@@ -3,6 +3,9 @@
 
 ![alt tag](https://raw.githubusercontent.com/debianmaster/microservices-on-openshift/master/Arch.png)
 
+## initial setup
+`export OSE_DOMAIN=apps.demov3.osecloud.com`  
+
 ## for mongodb
 ```sh
 oc new-app -e MONGODB_USER=app_user,MONGODB_PASSWORD=password,\
@@ -19,10 +22,11 @@ oc new-app --context-dir='python-email-api' \
 
 ## for php-ui 
 ```sh
-oc new-app -e NODEJS_APPLICATION_DOMAIN=http://nodejs-users-api-microservices.apps.demov3.osecloud.com --context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='php-ui'
+oc new-app -e NODEJS_APPLICATION_DOMAIN=http://nodejs-users-api-microservices.$OSE_DOMAIN \ --context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git \
+--name='php-ui'
 ```
 
 ## for nodejs-users-api
 ```sh
-oc new-app -e PYTHON_APPLICATION_DOMAIN=http://python-email-api-microservices.apps.demov3.osecloud.com,MONGODB_DATABASE=sampledb,MONGODB_PASSWORD=password,MONGODB_USER=app_user,DATABASE_SERVICE_NAME=mongodb --context-dir='nodejs-users-api' https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'  
+oc new-app -e PYTHON_APPLICATION_DOMAIN=http://python-email-api-microservices.$OSE_DOMAIN,MONGODB_DATABASE=sampledb,MONGODB_PASSWORD=password,MONGODB_USER=app_user,DATABASE_SERVICE_NAME=mongodb --context-dir='nodejs-users-api' https://github.com/debianmaster/microservices-on-openshift.git --name='nodejs-users-api'  
 ```
