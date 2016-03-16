@@ -24,9 +24,9 @@ Although we can expose this service using a URL, if we want this email service t
 ## Creating User Registration Backend Micro Service
 This service contains two components. It has a database that saves the user data for which we are using MongoDB. It has business logic layer that exposes REST APIs to register a user, get userslist etc. This part of the application is written in NodeJS. We can deploy this microservice using one of the following two approaches. 
 
-Approach 1
-1. Create a MongoDB database and expose it as an internal service
-2. Create a User Registration Service that talks to the database deployed in the previous step. We are going to name this as "userregsvc".
+Approach 1<br>
+1. Create a MongoDB database and expose it as an internal service<br>
+2. Create a User Registration Service that talks to the database deployed in the previous step. We are going to name this as "userregsvc".<br>
 
 Approach 2
 If you want to create the whole microservice together we have provided a template that can be used to deploy the above two in a single step.
