@@ -24,14 +24,14 @@ Although we can expose this service using a URL, if we want this email service t
 ## Creating User Registration Backend Micro Service
 This service contains two components. It has a database that saves the user data for which we are using MongoDB. It has business logic layer that exposes REST APIs to register a user, get userslist etc. This part of the application is written in NodeJS. We can deploy this microservice using one of the following two approaches. 
 
-## Approach 1
+Approach 1
 1. Create a MongoDB database and expose it as an internal service
 2. Create a User Registration Service that talks to the database deployed in the previous step. We are going to name this as "userregsvc".
 
-## Approach 2
+Approach 2
 If you want to create the whole microservice together we have provided a template that can be used to deploy the above two in a single step.
 
-## Using Approach 1
+### Using Approach 1
 1. Create a MongoDB database 
 ```sh
 oc new-app -e MONGODB_USER=mongouser,MONGODB_PASSWORD=password,\
@@ -51,7 +51,7 @@ oc expose svc/userregsvc
 ```
 Note that we are using internal emailsvc as the EMAIL_APPLICATION_DOMAIN
 
-## Using Approach 2
+### Using Approach 2
 
 Download the template included at the root of this repository with name nodejs-mongodb-template. This has slight modifications to the default template/instant app supplied with OpenShift. We added APPLICATION_NAME so that you can choose the name you want and added the EMAIL_APPLICATION_DOMAIN parameter that supplies this environment variable to the User Registration service.
 
