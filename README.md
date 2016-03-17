@@ -28,7 +28,7 @@ The below command creates a new application for email service. This code is writ
 ```sh
 oc new-app --context-dir='python-email-api' \
   https://github.com/debianmaster/microservices-on-openshift.git \
-  --name=emailsvc --image-stream='python:2.7'  
+  --name=emailsvc --image-stream='python:2.7'  -l microservice=emailsvc
 ```
 
 Although we can expose this service using a URL, if we want this email service to be used by other applications over http using the command ``oc expose svc/python-email-api``, we are not doing it here as we intend to use this as an internal service. You will see in the next section that the User Registration service will use the internal service name ```emailsvc``` to send emails.
@@ -48,7 +48,7 @@ If you want to create the whole microservice together we have provided a templat
 ```sh
 oc new-app -e MONGODB_USER=mongouser,MONGODB_PASSWORD=password,\
 MONGODB_DATABASE=userdb,MONGODB_ADMIN_PASSWORD=password \
-  registry.access.redhat.com/rhscl/mongodb-26-rhel7 --name mongodb
+  registry.access.redhat.com/rhscl/mongodb-26-rhel7 --name mongodb -l microservice=userregsvc
 ```
 
 2. Create the User Registration Service and expose the service so that we can use a URL to make calls to the REST APIs exposed by this service
@@ -57,7 +57,7 @@ oc new-app -e EMAIL_APPLICATION_DOMAIN=http://emailsvc:8080,\
 MONGODB_DATABASE=userdb,MONGODB_PASSWORD=password,\
 MONGODB_USER=mongouser,DATABASE_SERVICE_NAME=mongodb \
 --context-dir='nodejs-users-api' \
-https://github.com/debianmaster/microservices-on-openshift.git --name='userregsvc'   
+https://github.com/debianmaster/microservices-on-openshift.git --name='userregsvc' -l microservice=userregsvc
 
 oc expose svc/userregsvc
 ```
@@ -80,7 +80,7 @@ Note that we are setting an environment variable for userregsvc to access the ba
 
 ```sh
 oc new-app -e USER_REGISTRATION_APPLICATION_DOMAIN="http://userregsvc-$OSE_PROJECT.$OSE_DOMAIN" \
---context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='userreg' 
+--context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='userreg' -l microservice=userreg
 
 oc expose svc/userreg
 ```
