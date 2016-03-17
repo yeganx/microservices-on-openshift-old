@@ -1,14 +1,29 @@
 > This repo demos usage of  microservices on open-shift.  
 > Microservices created in different languages communicate over REST as per picture below
 
+This repo demonstrates simple development and deployment of polyglot microservices on OpenShift V3.  The diagram below is the architecture of the application that is made up of three sample micro services. 
+1. UserRegistration Backend: This microservices exposes REST APIs to register users, display user list etc. The code is written in NodeJS and it persists the data into a MongoDB database
+2. UserRegistration: This is frontend UI built using PHP. The job of this microservice is confined to creating web pages.
+3. Email Service: This is a generic email service that receives a request and sends an email. This code is written in Python. We will also add an email log (thinking of MySQL DB).
+
 ![alt tag](https://raw.githubusercontent.com/debianmaster/microservices-on-openshift/master/Arch.jpeg)
 
+# 
 ## Initial Setup
-Let us first create some environment variable that makes it easy to deal with some of the parameters we use in the subsequent commands
+Create an OpenShift project where these microservices will be created for development purposes. As an example we are calling it msdev.
+```sh
+oc new-project msdev
+```
+
+If you wish to change the code, feel free to fork the code and use your git links instead.
+
+
+Let us create some environment variable that makes it easy to deal with some of the parameters we use in the subsequent commands
 ```sh
 export OSE_DOMAIN=<<your apps domain name..ex: apps.osecloud.com> 
 export OSE_PROJECT=<<your openshift projectname. ex:msdev>
 ```
+
 
 ## Create the Email Micro Service
 The below command creates a new application for email service. This code is written in Python. This service receives the email request and sends out the email.
