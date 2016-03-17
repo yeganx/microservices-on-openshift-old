@@ -1,7 +1,7 @@
 > This repo demos usage of  microservices on open-shift.  
 > Microservices created in different languages communicate over REST as per picture below
 
-![alt tag](https://raw.githubusercontent.com/debianmaster/microservices-on-openshift/master/Arch.png)
+![alt tag](https://raw.githubusercontent.com/debianmaster/microservices-on-openshift/master/Arch.jpeg)
 
 ## Initial Setup
 Let us first create some environment variable that makes it easy to deal with some of the parameters we use in the subsequent commands

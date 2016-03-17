@@ -188,6 +188,10 @@
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "value": "${DATABASE_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "EMAIL_APPLICATION_DOMAIN",
+                                        "value": "${EMAIL_APPLICATION_DOMAIN}"
                                     }
                                 ]
                             }
