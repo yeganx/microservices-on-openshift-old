@@ -1,6 +1,3 @@
-> This repo demos usage of  microservices on open-shift.  
-> Microservices created in different languages communicate over REST as per picture below
-
 This repo demonstrates simple development and deployment of polyglot microservices on OpenShift V3.  The diagram below is the architecture of the application that is made up of three sample micro services. 
 1. UserRegistration Backend: This microservices exposes REST APIs to register users, display user list etc. The code is written in NodeJS and it persists the data into a MongoDB database
 2. UserRegistration: This is frontend UI built using PHP. The job of this microservice is confined to creating web pages.
