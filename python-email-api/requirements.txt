@@ -1,3 +1,4 @@
 email==4.0.2
 falcon==0.3.0
 gunicorn==19.4.5
+mysql-connector-python-rf==2.1.3
