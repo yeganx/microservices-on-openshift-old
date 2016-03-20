@@ -15,7 +15,7 @@ var cors = require('cors');
 
 request = require('request-json');
 
-var client = request.createClient(process.env.PYTHON_APPLICATION_DOMAIN);
+var client = request.createClient(process.env.EMAIL_APPLICATION_DOMAIN);
 
 var port = process.env.PORT || 8080; 
 mongoose.connect(config.database); 
