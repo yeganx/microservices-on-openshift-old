@@ -50,7 +50,6 @@ oc new-app -e MONGODB_USER=mongouser,MONGODB_PASSWORD=password,\
 MONGODB_DATABASE=userdb,MONGODB_ADMIN_PASSWORD=password \
   registry.access.redhat.com/rhscl/mongodb-26-rhel7 --name mongodb -l microservice=userregsvc
   
-oc new-app -e MYSQL_USER=app_user,MYSQL_PASSWORD=Gtfer452,MYSQL_DATABASE=microservices     registry.access.redhat.com/openshift3/mysql-55-rhel7 --name='mysql'
 ```
 
 2. Create the User Registration Service and expose the service so that we can use a URL to make calls to the REST APIs exposed by this service

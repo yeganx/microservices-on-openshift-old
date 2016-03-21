@@ -3,7 +3,7 @@ import falcon
 import json
 import smtplib
 import codecs
-import mysql.connector
+#import mysql.connector
 import os
 from datetime import datetime
 from datetime import timedelta
@@ -35,28 +35,28 @@ class EmailResource(object):
         resp.status = falcon.HTTP_202
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("node2test@gmail.com", "Refresh@2015")
+        server.login(os.getenv('GMAIL_USERNAME', 'node2test@gmail.com'), os.getenv('GMAIL_PASSWORD', 'Refresh@2015'))
         msg = email_req['msg']
-        server.sendmail("node2test@gmail.com", email_req['to'], msg)
+        server.sendmail(os.getenv('GMAIL_USERNAME', 'node2test@gmail.com'), email_req['to'], msg)
         server.quit()
-        config = {
-          'user': os.getenv('MYSQL_USER', 'root'),
-          'password': os.getenv('MYSQL_PASSWORD', ''),
-          'host': os.getenv('MYSQL_SERVICE_HOST', 'localhost'),
-          'database': os.getenv('MYSQL_DATABASE', 'microservices'),
-          'raise_on_warnings': True,
-        }
-        cnx = mysql.connector.connect(**config)
-        cursor = cnx.cursor()
-        add_email = ("INSERT INTO emails "
-                       "(from_add, to_add, subject, body, created_at) "
-                       "VALUES (%s, %s, %s, %s, %s)")
+        #config = {
+          #'user': os.getenv('MYSQL_USER', 'root'),
+          #'password': os.getenv('MYSQL_PASSWORD', ''),
+          #'host': os.getenv('MYSQL_SERVICE_HOST', 'localhost'),
+          #'database': os.getenv('MYSQL_DATABASE', 'microservices'),
+          #'raise_on_warnings': True,
+        #}
+        #cnx = mysql.connector.connect(**config)
+        #cursor = cnx.cursor()
+        #add_email = ("INSERT INTO emails "
+                       #"(from_add, to_add, subject, body, created_at) "
+                       #"VALUES (%s, %s, %s, %s, %s)")
 
-        data_email = ('node2test@gmail.com', email_req['to'], 'New registration',msg, datetime.now())
-        cursor.execute(add_email, data_email)
-        cnx.commit()
-        cursor.close()
-        cnx.close()
+        #data_email = (os.getenv('GMAIL_USERNAME', 'node2test@gmail.com'), email_req['to'], 'New registration',msg, datetime.now())
+        #cursor.execute(add_email, data_email)
+        #cnx.commit()
+        #cursor.close()
+        #cnx.close()
         resp.body = json.dumps(email_req)
 
 api = falcon.API()
