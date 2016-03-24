@@ -129,6 +129,7 @@ apiRoutes.get('/', function(req, res) {
 
 app.post('/users', function(req, res) {
 	var u = req.body;
+	console.log(u,'userobj');
 	u.admin=false;
 	var usr = new User(u);
 	usr.save(function(err,data) {
