@@ -129,9 +129,10 @@ apiRoutes.get('/', function(req, res) {
 
 app.post('/users', function(req, res) {
 	var u = req.body;
-	console.log(u,'userobj');
+	console.log('userobj',u,'email=',process.env.EMAIL_APPLICATION_DOMAIN);
 	u.admin=false;
 	var usr = new User(u);
+	console.log(usr);
 	usr.save(function(err,data) {
 		if (err) throw err;
 		data = {
