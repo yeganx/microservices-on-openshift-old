@@ -23,10 +23,29 @@ export OSE_PROJECT=<<your openshift projectname. ex:msdev>
 
 
 ## Create the Email Micro Service
-The below command creates a new application for email service. This code is written in Python. This service receives the email request and sends out the email.
+The below command creates a new application for email service. This code is written in Python and emails are archived in mysql. This service receives the email request and sends out the email.
+
+##### Create mysql backend   
+
+```sh
+oc new-app -e MYSQL_USER='app_user',MYSQL_PASSWORD='password',MYSQL_DATABASE=microservices     registry.access.redhat.com/openshift3/mysql-55-rhel7 --name='mysql'
+```
+> Get into the mysql pod and create schema  
+
+
+`oc rsh $(oc get pods | grep mysql | awk '{print $1}')    # rsh will ssh into the mysql pod`  
+`mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $HOSTNAME $MYSQL_DATABASE   ##inside the pod`  
+`create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);`   
+```
+##### Create mysql backend 
 
 ```sh
 oc new-app --context-dir='python-email-api' \
+  -e EMAIL_APPLICATION_DOMAIN=http://emailsvc:8080,\
+MYSQL_USER='app_user',\
+MYSQL_PASSWORD='password',\
+MYSQL_DATABASE='microservices',\
+MYSQL_SERVICE_HOST='MYSQL'\
   https://github.com/debianmaster/microservices-on-openshift.git \
   --name=emailsvc --image-stream='python:2.7'  -l microservice=emailsvc
 ```
@@ -44,24 +63,13 @@ Approach 2
 If you want to create the whole microservice together we have provided a template that can be used to deploy the above two in a single step.
 
 ### Using Approach 1
-1. Create a MongoDB database & MySQL database
+1. Create a MongoDB database
 ```sh
 oc new-app -e MONGODB_USER=mongouser,MONGODB_PASSWORD=password,\
 MONGODB_DATABASE=userdb,MONGODB_ADMIN_PASSWORD=password \
   registry.access.redhat.com/rhscl/mongodb-26-rhel7 --name mongodb -l microservice=userregsvc
   
 ```   
-
-```sh
-oc new-app -e MYSQL_USER='app_user',MYSQL_PASSWORD='password',MYSQL_DATABASE=microservices     registry.access.redhat.com/openshift3/mysql-55-rhel7 --name='mysql'
-```
-> Get into the mysql pod and create schema  
-
-```sh
-oc rsh $(oc get pods | grep mysql | awk '{print $1}')    # rsh will ssh into the mysql pod
-mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $HOSTNAME $MYSQL_DATABASE   ##inside the pod
-create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);  
-```
 
 2. Create the User Registration Service and expose the service so that we can use a URL to make calls to the REST APIs exposed by this service
 ```sh
