@@ -55,6 +55,13 @@ MONGODB_DATABASE=userdb,MONGODB_ADMIN_PASSWORD=password \
 ```sh
 oc new-app -e MYSQL_USER='app_user',MYSQL_PASSWORD='password',MYSQL_DATABASE=microservices     registry.access.redhat.com/openshift3/mysql-55-rhel7 --name='mysql'
 ```
+> Get into the mysql pod and create schema  
+
+```sh
+oc rsh $(oc get pods | grep mysql | awk '{print $1}')    # rsh will ssh into the mysql pod
+mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $HOSTNAME $MYSQL_DATABASE   ##inside the pod
+create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);  
+```
 
 2. Create the User Registration Service and expose the service so that we can use a URL to make calls to the REST APIs exposed by this service
 ```sh
