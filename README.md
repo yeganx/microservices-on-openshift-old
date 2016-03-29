@@ -42,7 +42,7 @@ oc rsh $(oc get pods | grep mysql | awk '{print $1}')    # rsh will ssh into the
 ```sh
 mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $HOSTNAME $MYSQL_DATABASE   ##inside the pod 
 ```
-```sh
+```sql
 create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);   
 ```
 
