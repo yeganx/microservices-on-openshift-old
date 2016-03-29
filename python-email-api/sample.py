@@ -3,7 +3,7 @@ import falcon
 import json
 import smtplib
 import codecs
-#import mysql.connector
+import pymysql.cursors
 import os
 from datetime import datetime
 from datetime import timedelta
@@ -39,24 +39,26 @@ class EmailResource(object):
         msg = email_req['msg']
         server.sendmail(os.getenv('GMAIL_USERNAME', 'node2test@gmail.com'), email_req['to'], msg)
         server.quit()
-        #config = {
-          #'user': os.getenv('MYSQL_USER', 'root'),
-          #'password': os.getenv('MYSQL_PASSWORD', ''),
-          #'host': os.getenv('MYSQL_SERVICE_HOST', 'localhost'),
-          #'database': os.getenv('MYSQL_DATABASE', 'microservices'),
-          #'raise_on_warnings': True,
-        #}
-        #cnx = mysql.connector.connect(**config)
-        #cursor = cnx.cursor()
-        #add_email = ("INSERT INTO emails "
-                       #"(from_add, to_add, subject, body, created_at) "
-                       #"VALUES (%s, %s, %s, %s, %s)")
+        config = {
+          'user': os.getenv('MYSQL_USER', 'root'),
+          'password': os.getenv('MYSQL_PASSWORD', ''),
+          'host': os.getenv('MYSQL_SERVICE_HOST', 'localhost'),
+          'db': os.getenv('MYSQL_DATABASE', 'microservices'),
+          'cursorclass': pymysql.cursors.DictCursor,
+        }
+        connection = pymysql.connect(**config)
+        try:
+            with connection.cursor() as cursor:
+                add_email = ("INSERT INTO emails "
+                       "(from_add, to_add, subject, body, created_at) "
+                       "VALUES (%s, %s, %s, %s, %s)")
 
-        #data_email = (os.getenv('GMAIL_USERNAME', 'node2test@gmail.com'), email_req['to'], 'New registration',msg, datetime.now())
-        #cursor.execute(add_email, data_email)
-        #cnx.commit()
-        #cursor.close()
-        #cnx.close()
+                data_email = (os.getenv('GMAIL_USERNAME', 'node2test@gmail.com'), email_req['to'], 'New registration',msg, datetime.now())
+                cursor.execute(add_email, data_email)
+                connection.commit()
+                #create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);
+        finally:
+            connection.close()
         resp.body = json.dumps(email_req)
 
 api = falcon.API()
