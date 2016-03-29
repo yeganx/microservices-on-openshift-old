@@ -35,7 +35,7 @@ MYSQL_PASSWORD='password',\
 MYSQL_DATABASE=microservices\
  registry.access.redhat.com/openshift3/mysql-55-rhel7 --name='mysql'
 ```
-> Get into the mysql pod and create schema  
+> Get into the mysql pod   
 
 
 ```sh
@@ -43,8 +43,14 @@ $ sleep 10 # wait till the mysql is pod is created
 $ oc rsh $(oc get pods | grep mysql | awk '{print $1}')    # rsh will ssh into the mysql pod
 $ mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $HOSTNAME $MYSQL_DATABASE   ##inside the pod 
 ```
+>  Create schema and exit container
+
 ```sql
 create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);   
+```
+```sh
+$ exit  # to exit from mysql prompt
+$ exit  # to exit from pod
 ```
 
 ###### Create email service  
