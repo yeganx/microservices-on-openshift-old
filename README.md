@@ -6,7 +6,7 @@ This repo demonstrates simple development and deployment of polyglot microservic
 ![alt tag](https://raw.githubusercontent.com/debianmaster/microservices-on-openshift/master/Arch.jpeg)
 
 # 
-## Initial Setup
+## 0. Initial Setup
 Create an OpenShift project where these microservices will be created for development purposes. As an example we are calling it msdev.
 ```sh
 oc new-project msdev
@@ -22,10 +22,10 @@ export OSE_PROJECT=<<your openshift projectname. ex:msdev>
 ```
 
 
-## Create the Email Micro Service
+## 1. Create the Email Micro Service
 The below command creates a new application for email service. This code is written in Python and emails are archived in mysql. This service receives the email request and sends out the email.
 
-#### Create mysql backend   
+###### Create mysql backend   
 
 ```sh
 oc new-app -e MYSQL_USER='app_user',MYSQL_PASSWORD='password',MYSQL_DATABASE=microservices     registry.access.redhat.com/openshift3/mysql-55-rhel7 --name='mysql'
@@ -43,7 +43,7 @@ mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $HOSTNAME $MYSQL_DATABASE   ##inside t
 create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);   
 ```
 
-#### Create email service  
+###### Create email service  
 
 ```sh
 oc new-app --context-dir='python-email-api' \
@@ -58,7 +58,7 @@ MYSQL_SERVICE_HOST='MYSQL'\
 
 Although we can expose this service using a URL, if we want this email service to be used by other applications over http using the command ``oc expose svc/python-email-api``, we are not doing it here as we intend to use this as an internal service. You will see in the next section that the User Registration service will use the internal service name ```emailsvc``` to send emails.
 
-## Creating User Registration Backend Micro Service
+## 2. Creating User Registration Backend Micro Service
 This service contains two components. It has a database that saves the user data for which we are using MongoDB. It has business logic layer that exposes REST APIs to register a user, get userslist etc. This part of the application is written in NodeJS. We can deploy this microservice using one of the following two approaches. 
 
 Approach 1<br>
@@ -100,7 +100,7 @@ oc process -f nodejs-mongodb-template.json -v APPLICATION_NAME=userregsvc,SOURCE
 ```
 
 
-## Create the frontend user registration application as a separate microservice 
+## 3. Create the frontend user registration application as a separate microservice 
 This microservice produces html+javascript to run in a browser and makes ajax calls to the backend User Registration service using REST APIs.
 Note that we are setting an environment variable for userregsvc to access the backend using REST APIs.
 
