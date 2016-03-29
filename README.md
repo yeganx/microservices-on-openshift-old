@@ -20,7 +20,9 @@ Let us create some environment variable that makes it easy to deal with some of 
 export OSE_DOMAIN=<<your apps domain name..ex: apps.osecloud.com> 
 export OSE_PROJECT=<<your openshift projectname. ex:msdev>
 ```
-
+Ex:--   
+`$ export OSE_DOMAIN=apps.oseworkshop.sc.osecloud.com`  
+`$ export OSE_PROJECT=msdev`  
 
 ## 1. Create the Email Micro Service
 The below command creates a new application for email service. This code is written in Python and emails are archived in mysql. This service receives the email request and sends out the email.
