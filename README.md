@@ -25,7 +25,7 @@ export OSE_PROJECT=<<your openshift projectname. ex:msdev>
 ## Create the Email Micro Service
 The below command creates a new application for email service. This code is written in Python and emails are archived in mysql. This service receives the email request and sends out the email.
 
-##### Create mysql backend   
+#### Create mysql backend   
 
 ```sh
 oc new-app -e MYSQL_USER='app_user',MYSQL_PASSWORD='password',MYSQL_DATABASE=microservices     registry.access.redhat.com/openshift3/mysql-55-rhel7 --name='mysql'
@@ -37,7 +37,7 @@ oc new-app -e MYSQL_USER='app_user',MYSQL_PASSWORD='password',MYSQL_DATABASE=mic
 `mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $HOSTNAME $MYSQL_DATABASE   ##inside the pod`  
 `create table emails (from_add varchar(40), to_add varchar(40), subject varchar(40), body varchar(200), created_at date);`   
 ```
-##### Create mysql backend 
+#### Create email service  
 
 ```sh
 oc new-app --context-dir='python-email-api' \
