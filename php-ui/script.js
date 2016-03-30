@@ -31,12 +31,19 @@ app.controller('appController', function($scope,$http) {
         });
 	};
 	$scope.getFriendsList=function(){
-		$http.get($scope.target+"/api/users?token="+$scope.token).success(function(data, status) {
-            console.log(data);
-            $scope.friends=data;
-            $scope.currentPage='friends';
-        });	
+	    $http.get($scope.target+"/api/users?token="+$scope.token).success(function(data, status) {
+	            console.log(data);
+	            $scope.friends=data;
+	            $scope.currentPage='friends';
+            });	
 	};
+	$scope.getTweets=function(user){
+	   $http.get($scope.tweetsTarget+"/simple-service-webapp/tweets/tweets?name="+user).success(function(data, status) {
+		    console.log(data);
+	            $scope.tweets=data;
+	            $scope.currentPage='tweets';
+            });	
+	}
 	$scope.register = function (){
 	  	$http.post($scope.target+"/users", $scope.form).success(function(data, status) {
             if(data['success']==true){
