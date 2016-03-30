@@ -15,12 +15,13 @@ app.controller('appController', function($scope,$http) {
 		username:'foobar',
 		password:'foobar'
 	};
-	$scope.target=document.getElementById('hdnTarget').value;
+	$scope.userTarget=document.getElementById('hdnUserRegSvc').value;
+	$scope.twitterTarget=document.getElementById('hdnTwitterSvc').value;
 	$scope.$watch('currentPage',function(old,newval) {
 		$scope.token='';
 	});
     $scope.login = function (){
-	  	$http.post("http://userregsvc-"+$scope.target+"/api/authenticate",$scope.loginform).success(function(data, status) {
+	  	$http.post($scope.userTarget+"/api/authenticate",$scope.loginform).success(function(data, status) {
             if(data['success']==true){
             	alert('Login successful, click link to get friends list.');
             	$scope.token=data.token;
@@ -31,21 +32,21 @@ app.controller('appController', function($scope,$http) {
         });
 	};
 	$scope.getFriendsList=function(){
-	    $http.get("http://userregsvc-"+$scope.target+"/api/users?token="+$scope.token).success(function(data, status) {
+	    $http.get($scope.userTarget+"/api/users?token="+$scope.token).success(function(data, status) {
 	            console.log(data);
 	            $scope.friends=data;
 	            $scope.currentPage='friends';
             });	
 	};
 	$scope.getTweets=function(user){
-	   $http.get("http://tweetssvc-"+$scope.target+"/simple-service-webapp/tweets/tweets?name="+user).success(function(data, status) {
+	   $http.get($scope.twitterTarget+"/simple-service-webapp/api/tweets?name="+user).success(function(data, status) {
 		    console.log(data);
-	            $scope.tweets=data;
+	            $scope.tweets=data.tweets;
 	            $scope.currentPage='tweets';
             });	
 	}
 	$scope.register = function (){
-	  	$http.post("http://userregsvc-"+$scope.target+"/users", $scope.form).success(function(data, status) {
+	  	$http.post($scope.userTarget+"/users", $scope.form).success(function(data, status) {
             if(data['success']==true){
             	alert('Registration successful, please login');
             	$scope.currentPage='login';
