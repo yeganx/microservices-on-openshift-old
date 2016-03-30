@@ -1,3 +1,4 @@
+
 package com.example;
  
 
@@ -21,13 +22,13 @@ import twitter4j.conf.ConfigurationBuilder;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("/")
+@Path("tweets")
 public class MyResource {
     
+
     @GET
-    @Path("getTweets")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNewAccountNumber(@QueryParam("name") String name) {
+    public Response getIt(@QueryParam("name") String name) {
 
         User u = new User();
         List<String> tweetsFromUser = new ArrayList<String>();
