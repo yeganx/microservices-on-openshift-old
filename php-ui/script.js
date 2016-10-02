@@ -15,7 +15,7 @@ app.controller('appController', function($scope,$http) {
 		username:'foobar',
 		password:'foobar'
 	};
-	$scope.userTarget="http://userregsvc-msdev.apps.10.2.2.2.xip.io";
+	scope.userTarget=document.getElementById('hdnUserRegSvc').value;
 	$scope.twitterTarget=document.getElementById('hdnTwitterSvc').value;
 	$scope.$watch('currentPage',function(old,newval) {
 		$scope.token='';
