@@ -62,7 +62,7 @@ MYSQL_USER='app_user',\
 MYSQL_PASSWORD='password',\
 MYSQL_DATABASE='microservices',\
 MYSQL_SERVICE_HOST='MYSQL'\
-  https://github.com/debianmaster/microservices-on-openshift.git \
+  https://github.com/yeganx/microservices-on-openshift-old.git \
   --name=emailsvc --image-stream='python:2.7'  -l microservice=emailsvc
 ```
 
@@ -93,7 +93,7 @@ oc new-app -e EMAIL_APPLICATION_DOMAIN=http://emailsvc:8080,\
 MONGODB_DATABASE=userdb,MONGODB_PASSWORD=password,\
 MONGODB_USER=mongouser,DATABASE_SERVICE_NAME=mongodb \
 --context-dir='nodejs-users-api' \
-https://github.com/debianmaster/microservices-on-openshift.git --name='userregsvc' -l microservice=userregsvc
+https://github.com/yeganx/microservices-on-openshift-old.git --name='userregsvc' -l microservice=userregsvc
 
 oc expose svc/userregsvc
 ```
@@ -106,7 +106,7 @@ Download the template included at the root of this repository with name nodejs-m
 Note: You can easily create this template after application is created using Approach 1.
 
 ```sh
-oc process -f nodejs-mongodb-template.json -v APPLICATION_NAME=userregsvc,SOURCE_REPOSITORY_URL=https://github.com/debianmaster/microservices-on-openshift.git,CONTEXT_DIR=nodejs-users-api,DATABASE_SERVICE_NAME=mongodb,DATABASE_USER=mongouser,DATABASE_PASSWORD=password,DATABASE_NAME=userdb,DATABASE_ADMIN_PASSWORD=password,EMAIL_APPLICATION_DOMAIN=http://emailsvc:8080 | oc create -f -
+oc process -f nodejs-mongodb-template.json -v APPLICATION_NAME=userregsvc,SOURCE_REPOSITORY_URL=https://github.com/yeganx/microservices-on-openshift-old.git,CONTEXT_DIR=nodejs-users-api,DATABASE_SERVICE_NAME=mongodb,DATABASE_USER=mongouser,DATABASE_PASSWORD=password,DATABASE_NAME=userdb,DATABASE_ADMIN_PASSWORD=password,EMAIL_APPLICATION_DOMAIN=http://emailsvc:8080 | oc create -f -
 ```
 
 
@@ -116,7 +116,7 @@ Note that we are setting an environment variable for userregsvc to access the ba
 
 ```sh
 oc new-app -e APPLICATION_DOMAIN="$OSE_PROJECT.$OSE_DOMAIN" \
---context-dir='php-ui' https://github.com/debianmaster/microservices-on-openshift.git --name='userreg' -l microservice=userreg
+--context-dir='php-ui' https://github.com/yeganx/microservices-on-openshift-old.git --name='userreg' -l microservice=userreg
 
 oc expose svc/userreg
 ```
