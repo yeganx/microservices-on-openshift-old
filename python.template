@@ -111,7 +111,7 @@
     "name": "SOURCE_REPOSITORY_URL",
     "displayName": "Source repository URL",
     "description": "The URL of the repository with your application source code",
-    "value": "https://github.com/debianmaster/microservices-on-openshift.git"
+    "value": "https://github.com/yeganx/microservices-on-openshift-old.git"
   }, {
     "name": "SOURCE_REPOSITORY_REF",
     "displayName": "Source repository reference",
